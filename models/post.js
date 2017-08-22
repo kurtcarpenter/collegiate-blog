@@ -1,17 +1,18 @@
-var mongoose = require('mongoose')
-var Schema = mongoose.Schema
+'use strict'
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 
-var postSchema = new Schema({
+const postSchema = new Schema({
   title: {type: String, required: true},
   author: {type: String, required: true},
   body: {type: String, required: true},
   date: {type: Date, required: true}
 })
 postSchema.set('toObject', { versionKey: false })
-var Post = mongoose.model('post', postSchema)
+const Post = mongoose.model('post', postSchema)
 
 exports.create = function (title, author, body, success, failure) {
-  var post = new Post({
+  let post = new Post({
     title: title,
     author: author,
     body: body,

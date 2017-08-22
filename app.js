@@ -1,15 +1,17 @@
-var express = require('express')
-var path = require('path')
-var config = require('./config')
-// var favicon = require('serve-favicon')
-var morgan = require('morgan')
-var cookieParser = require('cookie-parser')
-var bodyParser = require('body-parser')
-var mongoose = require('mongoose')
-var logger = require('winston')
+'use strict'
 
-var routes = require('./routes/index')
-var posts = require('./routes/posts')
+const express = require('express')
+const path = require('path')
+const config = require('./config')
+// const favicon = require('serve-favicon')
+const morgan = require('morgan')
+const cookieParser = require('cookie-parser')
+const bodyParser = require('body-parser')
+const mongoose = require('mongoose')
+const logger = require('winston')
+
+const routes = require('./routes/index')
+const posts = require('./routes/posts')
 
 function initDatabase (mongoUri) {
   mongoose.connect(mongoUri, function (err) {
@@ -20,14 +22,15 @@ function initDatabase (mongoUri) {
     }
   })
 }
-var mongoUri
-mongoUri = 'mongodb://' + config.MONGO_USERNAME + ':' +
-  config.MONGO_PASSWORD + '@' + config.MONGO_HOST + '/' +
+const mongoUri = 'mongodb://' +
+  ((config.MONGO_USERNAME && config.MONGO_PASSWORD) ?
+    config.MONGO_USERNAME + ':' + config.MONGO_PASSWORD + '@': '') +
+  config.MONGO_HOST+ '/' +
   config.MONGO_DATABASE
-initDatabase(mongoUri)
-// var connection = mongoose.connections[0]
 
-var app = express()
+initDatabase(mongoUri)
+
+const app = express()
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
@@ -47,7 +50,7 @@ app.use('/posts', posts)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-  var err = new Error('Not Found')
+  const err = new Error('Not Found')
   err.status = 404
   next(err)
 })

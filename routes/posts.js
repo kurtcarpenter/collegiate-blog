@@ -1,7 +1,8 @@
-var express = require('express')
-var router = express.Router()
-var Post = require('../models/post')
-var logger = require('winston')
+'use strict'
+const express = require('express')
+const router = express.Router()
+const Post = require('../models/post')
+const logger = require('winston')
 
 router.post('/add', function (req, res) {
   logger.info('Received' + req.body)
