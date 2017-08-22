@@ -15,19 +15,6 @@ router.post('/add', function (req, res) {
     })
 })
 
-router.get('/:id', function (req, res) {
-  Post.read(req.params.id, function (post) {
-    res.render('post', {
-      title: post.title,
-      author: post.author,
-      date: post.date,
-      body: post.body})
-  }, function (err) {
-    logger.warn(err)
-    res.render('error', { message: '404', error: { status: 'Page not found' } })
-  })
-})
-
 router.get('/all', function (req, res) {
   Post.all(
     function (posts) {
@@ -36,6 +23,15 @@ router.get('/all', function (req, res) {
       logger.warn(err)
       res.status(500).send()
     })
+})
+
+router.get('/:id', function (req, res) {
+  Post.read(req.params.id, function (post) {
+    res.send(post)
+  }, function (err) {
+    logger.warn(err)
+    res.render('error', { message: '404', error: { status: 'Page not found' } })
+  })
 })
 
 router.put('/:id', function (req, res) {
