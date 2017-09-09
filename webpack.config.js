@@ -1,6 +1,5 @@
 var HTMLWebpackPlugin = require('html-webpack-plugin');
 var HTMLWebpackPluginConfig = new HTMLWebpackPlugin({
-
 	template: __dirname + '/app/index.html',
 	filename: 'index.html',
 	inject: 'body'
@@ -9,25 +8,20 @@ var HTMLWebpackPluginConfig = new HTMLWebpackPlugin({
 module.exports = {
 	entry: __dirname + '/app/index.js',
 	module: {
-
-	loaders:[
+		rules: [
 			{
-			test: /\.jsx$/,
-			exclude: /node_modules/,
-			loader: 'babel-loader',
-			query: {
-				presets : ['es2015']
+				test: /\.js$/,
+				exclude: /node_modules/,
+				loader: 'babel-loader',
+				query: {
+					presets : ['es2015']
+				}
 			}
-
-			}
-
 		]
-
 	},
 	output:{
 		filename: 'transformed.js',
-		path: __dirname + '/build'
+		path: __dirname + '/public/build'
 	},
 	plugins: [HTMLWebpackPluginConfig]
-
 };
